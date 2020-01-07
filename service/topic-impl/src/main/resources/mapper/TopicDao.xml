@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duan.service.dao.TopicDao">
+
+    <sql id="allFields">id, user_id, `status`, title, notes, insert_time</sql>
+
+    <select id="findAll" resultType="com.duan.service.common.entity.Topic">
+        SELECT
+        <include refid="allFields"/>
+        FROM topic
+    </select>
+
+    <select id="find" resultType="com.duan.service.common.entity.Topic"
+            parameterType="com.duan.service.common.entity.Topic">
+        SELECT
+        <include refid="allFields"/>
+        FROM topic
+        <where>
+            <if test="id != null">
+                id=#{id} AND
+            </if>
+            <if test="id != null">
+                user_id=#{userId} AND
+            </if>
+            <if test="status != null">
+                `status`=#{status} AND
+            </if>
+            <if test="title != null">
+                title=#{title} AND
+            </if>
+            <if test="notes != null">
+                notes=#{notes} AND
+            </if>
+            <if test="insert_time != null">
+                insert_time=#{insertTime} AND
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" parameterType="com.duan.service.common.entity.Topic" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO topic (`status`,user_id, title, notes)
+        VALUE (#{status},#{userId}, #{title}, #{notes})
+    </insert>
+
+</mapper>
