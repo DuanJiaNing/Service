@@ -1,14 +1,14 @@
 package com.duan.service.impl;
 
-import com.duan.service.dto.PageCondition;
-import com.duan.service.exceptions.InternalException;
-import com.duan.service.util.DataConverter;
-import com.duan.service.common.TopicStatus;
-import com.duan.service.dto.TopicDTO;
-import com.duan.service.common.entity.Topic;
-import com.duan.service.exceptions.TopicException;
-import com.duan.service.dao.TopicDao;
 import com.duan.service.TopicService;
+import com.duan.service.common.TopicStatus;
+import com.duan.service.common.entity.Topic;
+import com.duan.service.dao.TopicDao;
+import com.duan.service.dto.PageCondition;
+import com.duan.service.dto.TopicDTO;
+import com.duan.service.exceptions.InternalException;
+import com.duan.service.exceptions.TopicException;
+import com.duan.service.util.DataConverter;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -35,23 +35,12 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public TopicDTO like(int id) throws TopicException {
-        return null;
-    }
-
-    @Override
-    public TopicDTO dislike(int id) throws TopicException {
-        return null;
-    }
-
-    @Override
-    public TopicDTO add(String title, String notes) throws TopicException {
+    public TopicDTO add(String title, String notes, String uid, String appId) throws TopicException {
         if (title == null || StringUtils.isBlank(title)) {
             throw new TopicException("Fail to add topic: topic title can not be empty");
         }
 
         // TODO check exist by title
-//        topicDao.
 
         Topic topic = new Topic();
         if (StringUtils.isNotBlank(notes)) {
@@ -59,6 +48,8 @@ public class TopicServiceImpl implements TopicService {
         }
         topic.setTitle(title);
         topic.setStatus(TopicStatus.FINE.ordinal());
+        topic.setUserId(uid);
+        topic.setAppId(appId);
         if (topicDao.insert(topic) != 1) {
             throw new TopicException("Fail to add topic", new InternalException("DB"));
         }

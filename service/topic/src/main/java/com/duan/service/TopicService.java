@@ -14,11 +14,7 @@ import com.github.pagehelper.PageInfo;
  */
 public interface TopicService extends Service<TopicDTO> {
 
-    TopicDTO like(int id) throws TopicException;
-
-    TopicDTO dislike(int id) throws TopicException;
-
-    TopicDTO add(String topic, String notes) throws TopicException;
+    TopicDTO add(String topic, String notes, String uid, String appId) throws TopicException;
 
     PageInfo<TopicDTO> list(PageCondition pageCondition);
 

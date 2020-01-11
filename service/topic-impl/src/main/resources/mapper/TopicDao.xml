@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.duan.service.dao.TopicDao">
 
-    <sql id="allFields">id, user_id, `status`, title, notes, insert_time</sql>
+    <sql id="allFields">id, user_id, app_id, `status`, title, notes, insert_time</sql>
 
     <select id="findAll" resultType="com.duan.service.common.entity.Topic">
         SELECT
@@ -21,8 +21,11 @@
             <if test="id != null">
                 id=#{id} AND
             </if>
-            <if test="id != null">
+            <if test="user_id != null">
                 user_id=#{userId} AND
+            </if>
+            <if test="app_id != null">
+                app_id=#{appId} AND
             </if>
             <if test="status != null">
                 `status`=#{status} AND
@@ -40,8 +43,8 @@
     </select>
 
     <insert id="insert" parameterType="com.duan.service.common.entity.Topic" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO topic (`status`,user_id, title, notes)
-        VALUE (#{status},#{userId}, #{title}, #{notes})
+        INSERT INTO topic (`status`, app_id, user_id, title, notes)
+            VALUE (#{status}, #{appId}, #{userId}, #{title}, #{notes})
     </insert>
 
 </mapper>
