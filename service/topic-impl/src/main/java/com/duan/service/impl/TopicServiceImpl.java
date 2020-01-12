@@ -1,11 +1,11 @@
 package com.duan.service.impl;
 
 import com.duan.service.TopicService;
-import com.duan.service.common.TopicStatus;
-import com.duan.service.entity.Topic;
+import com.duan.service.enums.TopicStatus;
 import com.duan.service.dao.TopicDao;
-import com.duan.service.dto.PageCondition;
+import com.duan.service.dto.TopicCriteriaDTO;
 import com.duan.service.dto.TopicDTO;
+import com.duan.service.entity.Topic;
 import com.duan.service.exceptions.InternalException;
 import com.duan.service.exceptions.TopicException;
 import com.duan.service.util.DataConverter;
@@ -40,10 +40,7 @@ public class TopicServiceImpl implements TopicService {
             throw new TopicException("Fail to add topic: topic title can not be empty");
         }
 
-        Topic fcheck = new Topic();
-        fcheck.setTitle(title);
-        List<Topic> topics = topicDao.find(fcheck);
-        if (topics.size() == 1) {
+        if (topicDao.findByTitle(title) != null) {
             throw new TopicException("Fail to add topic: topic with same title exist");
         }
 
@@ -52,7 +49,7 @@ public class TopicServiceImpl implements TopicService {
             topic.setNotes(notes);
         }
         topic.setTitle(title);
-        topic.setStatus(TopicStatus.FINE.ordinal());
+        topic.setStatus(TopicStatus.FINE.getCode());
         topic.setUserId(uid);
         topic.setAppId(appId);
         if (topicDao.insert(topic) != 1) {
@@ -63,16 +60,16 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public PageInfo<TopicDTO> list(PageCondition pageCondition) {
-        if (pageCondition == null || pageCondition.getPageNum() < 0 || pageCondition.getPageSize() <= 0) {
+    public PageInfo<TopicDTO> list(TopicCriteriaDTO criteria) {
+        if (criteria.getPageNum() < 0 || criteria.getPageSize() <= 0) {
             // no page query is not allowed, set default to 0,10
-            pageCondition = new PageCondition();
-            pageCondition.setPageNum(0);
-            pageCondition.setPageSize(10);
+            criteria.setPageNum(0);
+            criteria.setPageSize(10);
         }
 
-        PageHelper.startPage(pageCondition.getPageNum(), pageCondition.getPageSize());
-        List<Topic> pageList = topicDao.findAll();
+        Topic st = DataConverter.map(criteria, Topic.class);
+        PageHelper.startPage(criteria.getPageNum(), criteria.getPageSize());
+        List<Topic> pageList = topicDao.find(st);
         return DataConverter.page(pageList, TopicDTO.class);
     }
 }

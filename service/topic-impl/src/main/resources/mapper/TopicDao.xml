@@ -30,8 +30,8 @@
             <if test="status != null">
                 AND `status`=#{status}
             </if>
-            <if test="title != null">
-                AND title=#{title}
+            <if test="title != null and title.length() > 0">
+                AND title like '%${title}%'
             </if>
             <if test="notes != null">
                 AND notes=#{notes}
@@ -40,6 +40,12 @@
                 AND insert_time=#{insertTime}
             </if>
         </where>
+    </select>
+
+    <select id="findByTitle" resultType="com.duan.service.entity.Topic">
+        SELECT
+        <include refid="allFields"/>
+        FROM topic WHERE `title`=#{value}
     </select>
 
     <insert id="insert" parameterType="com.duan.service.entity.Topic" useGeneratedKeys="true" keyProperty="id">

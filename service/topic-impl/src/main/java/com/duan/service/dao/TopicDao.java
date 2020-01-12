@@ -14,4 +14,6 @@ import java.util.List;
 public interface TopicDao extends BaseDao<Topic> {
 
     List<Topic> findAll();
+
+    Topic findByTitle(String title);
 }

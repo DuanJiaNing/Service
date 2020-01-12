@@ -1,6 +1,6 @@
 package com.duan.service.exceptions;
 
-import com.duan.service.common.TopicStatus;
+import com.duan.service.enums.TopicStatus;
 
 /**
  * Created on 2019/11/1.

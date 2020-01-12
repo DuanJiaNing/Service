@@ -5,14 +5,14 @@ package com.duan.service.enums;
  *
  * @author DuanJiaNing
  */
-public enum CommentStatus {
+public enum TopicStatus {
 
     FINE(1),
     DELETED(2);
 
     private int code;
 
-    CommentStatus(int code) {
+    TopicStatus(int code) {
         this.code = code;
     }
 
