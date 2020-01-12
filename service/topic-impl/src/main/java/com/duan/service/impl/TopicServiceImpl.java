@@ -2,7 +2,7 @@ package com.duan.service.impl;
 
 import com.duan.service.TopicService;
 import com.duan.service.common.TopicStatus;
-import com.duan.service.common.entity.Topic;
+import com.duan.service.entity.Topic;
 import com.duan.service.dao.TopicDao;
 import com.duan.service.dto.PageCondition;
 import com.duan.service.dto.TopicDTO;
@@ -40,7 +40,12 @@ public class TopicServiceImpl implements TopicService {
             throw new TopicException("Fail to add topic: topic title can not be empty");
         }
 
-        // TODO check exist by title
+        Topic fcheck = new Topic();
+        fcheck.setTitle(title);
+        List<Topic> topics = topicDao.find(fcheck);
+        if (topics.size() == 1) {
+            throw new TopicException("Fail to add topic: topic with same title exist");
+        }
 
         Topic topic = new Topic();
         if (StringUtils.isNotBlank(notes)) {

@@ -1,4 +1,4 @@
-package com.duan.service.common.entity;
+package com.duan.service.entity;
 
 
 import lombok.Data;
@@ -12,15 +12,16 @@ import java.sql.Timestamp;
  * @author DuanJiaNing
  */
 @Data
-public class Comment implements Serializable {
+public class Topic implements Serializable {
 
     private static final long serialVersionUID = -256865085363011189L;
     private Integer id;
-    private Integer topicId;
-    private Timestamp insertTime;
+    private String userId;
+    private String appId;
 
-    private String content;
     private Integer status;
-    private Integer like;
-    private Integer dislike;
+    private String title;
+    private String notes;
+
+    private Timestamp insertTime;
 }

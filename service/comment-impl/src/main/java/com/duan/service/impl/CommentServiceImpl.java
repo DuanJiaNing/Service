@@ -4,7 +4,7 @@ import com.duan.service.dto.PageCondition;
 import com.duan.service.exceptions.InternalException;
 import com.duan.service.util.DataConverter;
 import com.duan.service.dto.CommentDTO;
-import com.duan.service.common.entity.Comment;
+import com.duan.service.entity.Comment;
 import com.duan.service.enums.CommentStatus;
 import com.duan.service.exceptions.CommentException;
 import com.duan.service.exceptions.IllegalStatusException;

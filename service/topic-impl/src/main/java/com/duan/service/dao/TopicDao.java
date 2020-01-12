@@ -1,6 +1,6 @@
 package com.duan.service.dao;
 
-import com.duan.service.common.entity.Topic;
+import com.duan.service.entity.Topic;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.duan.service.dao;
 
-import com.duan.service.common.entity.Comment;
+import com.duan.service.entity.Comment;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.duan.service.common.entity;
+package com.duan.service.entity;
 
 import lombok.Data;
 

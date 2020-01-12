@@ -6,43 +6,43 @@
 
     <sql id="allFields">id, user_id, app_id, `status`, title, notes, insert_time</sql>
 
-    <select id="findAll" resultType="com.duan.service.common.entity.Topic">
+    <select id="findAll" resultType="com.duan.service.entity.Topic">
         SELECT
         <include refid="allFields"/>
         FROM topic
     </select>
 
-    <select id="find" resultType="com.duan.service.common.entity.Topic"
-            parameterType="com.duan.service.common.entity.Topic">
+    <select id="find" resultType="com.duan.service.entity.Topic"
+            parameterType="com.duan.service.entity.Topic">
         SELECT
         <include refid="allFields"/>
         FROM topic
         <where>
             <if test="id != null">
-                id=#{id} AND
+                AND id=#{id}
             </if>
-            <if test="user_id != null">
-                user_id=#{userId} AND
+            <if test="userId != null">
+                AND user_id=#{userId}
             </if>
-            <if test="app_id != null">
-                app_id=#{appId} AND
+            <if test="appId != null">
+                AND app_id=#{appId}
             </if>
             <if test="status != null">
-                `status`=#{status} AND
+                AND `status`=#{status}
             </if>
             <if test="title != null">
-                title=#{title} AND
+                AND title=#{title}
             </if>
             <if test="notes != null">
-                notes=#{notes} AND
+                AND notes=#{notes}
             </if>
-            <if test="insert_time != null">
-                insert_time=#{insertTime} AND
+            <if test="insertTime != null">
+                AND insert_time=#{insertTime}
             </if>
         </where>
     </select>
 
-    <insert id="insert" parameterType="com.duan.service.common.entity.Topic" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.duan.service.entity.Topic" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO topic (`status`, app_id, user_id, title, notes)
             VALUE (#{status}, #{appId}, #{userId}, #{title}, #{notes})
     </insert>
