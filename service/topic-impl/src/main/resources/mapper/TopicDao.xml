@@ -40,6 +40,7 @@
                 AND insert_time=#{insertTime}
             </if>
         </where>
+        ORDER BY insert_time desc
     </select>
 
     <select id="findByTitle" resultType="com.duan.service.entity.Topic">
