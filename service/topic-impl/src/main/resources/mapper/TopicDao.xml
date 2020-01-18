@@ -49,20 +49,6 @@
         FROM topic WHERE `title`=#{value}
     </select>
 
-<!--    TODO-->
-    <select id="findSummaryByIds" resultType="com.duan.service.dto.TopicSummaryDTO">
-        SELECT
-vc.topic_id AS topic_id,
-case when vc.vote > 0 then
-FROM (
-(SELECT uvc.topic_id AS topic_id, SUM(uvc.vote) AS vote FROM user_vote_comment uvc WHERE uvc.topic_id IN (22,23,24,25) GROUP BY uvc.topic_id) vc
-LEFT JOIN
-(SELECT uit.topic_id AS topic_id, COUNT(uit.user_id) AS interestUserCount FROM user_interest_topic uit GROUP BY uit.topic_id) it
-ON vc.topic_id = it.topic_id)
-
-#GROUP BY topic_id
-    </select>
-
     <insert id="insert" parameterType="com.duan.service.entity.Topic" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO topic (`status`, app_id, user_id, title, notes)
             VALUE (#{status}, #{appId}, #{userId}, #{title}, #{notes})

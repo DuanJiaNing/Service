@@ -1,6 +1,5 @@
 package com.duan.service.dao;
 
-import com.duan.service.dto.TopicSummaryDTO;
 import com.duan.service.entity.Topic;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +17,4 @@ public interface TopicDao extends BaseDao<Topic> {
 
     Topic findByTitle(String title);
 
-    List<TopicSummaryDTO> findSummaryByIds(List<Integer> ids);
 }

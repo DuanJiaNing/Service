@@ -4,20 +4,17 @@ import com.duan.service.TopicService;
 import com.duan.service.dao.TopicDao;
 import com.duan.service.dto.TopicCriteriaDTO;
 import com.duan.service.dto.TopicDTO;
-import com.duan.service.dto.TopicSummaryDTO;
 import com.duan.service.entity.Topic;
 import com.duan.service.enums.TopicStatus;
 import com.duan.service.exceptions.InternalException;
 import com.duan.service.exceptions.TopicException;
 import com.duan.service.util.DataConverter;
-import com.duan.service.utils.Utils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,22 +73,4 @@ public class TopicServiceImpl implements TopicService {
         return DataConverter.page(pageList, TopicDTO.class);
     }
 
-    @Override
-    public PageInfo<TopicSummaryDTO> listSummary(TopicCriteriaDTO criteria) {
-        PageInfo<TopicDTO> pageInfo = simpleList(criteria);
-        if (Utils.emptyPage(pageInfo)) {
-            return null;
-        }
-
-        List<Integer> ids = new ArrayList<>(pageInfo.getList().size());
-        pageInfo.getList().forEach(topicDTO -> ids.add(topicDTO.getId()));
-        List<TopicSummaryDTO> sms = topicDao.findSummaryByIds(ids);
-        PageInfo<TopicSummaryDTO> res = new PageInfo<>();
-        res.setList(sms);
-        res.setPageNum(pageInfo.getPageNum());
-        res.setPageSize(pageInfo.getPageSize());
-        res.setTotal(pageInfo.getTotal());
-        res.setPages(pageInfo.getPages());
-        return res;
-    }
 }
