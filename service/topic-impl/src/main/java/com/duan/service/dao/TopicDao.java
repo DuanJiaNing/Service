@@ -1,6 +1,7 @@
 package com.duan.service.dao;
 
 import com.duan.service.entity.Topic;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,4 +18,5 @@ public interface TopicDao extends BaseDao<Topic> {
 
     Topic findByTitle(String title);
 
+    List<Topic> findWithIds(@Param("topic") Topic topic, @Param("ids") List<Integer> ids);
 }

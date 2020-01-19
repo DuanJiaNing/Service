@@ -73,4 +73,18 @@ public class TopicServiceImpl implements TopicService {
         return DataConverter.page(pageList, TopicDTO.class);
     }
 
+    @Override
+    public PageInfo<TopicDTO> simpleList(TopicCriteriaDTO criteria, List<Integer> ids) {
+        if (criteria.getPageNum() < 0 || criteria.getPageSize() <= 0) {
+            // no page query is not allowed, set default to 0,10
+            criteria.setPageNum(0);
+            criteria.setPageSize(10);
+        }
+
+        Topic st = DataConverter.map(criteria, Topic.class);
+        PageHelper.startPage(criteria.getPageNum(), criteria.getPageSize());
+        List<Topic> pageList = topicDao.findWithIds(st, ids);
+        return DataConverter.page(pageList, TopicDTO.class);
+    }
+
 }
