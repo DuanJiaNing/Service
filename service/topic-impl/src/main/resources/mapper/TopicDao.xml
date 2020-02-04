@@ -89,6 +89,13 @@
         ORDER BY insert_time desc
     </select>
 
+    <select id="findById" resultType="com.duan.service.entity.Topic">
+        SELECT
+        <include refid="allFields"/>
+        FROM topic
+        WHERE id = #{value}
+    </select>
+
     <insert id="insert" parameterType="com.duan.service.entity.Topic" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO topic (`status`, app_id, user_id, title, notes)
             VALUE (#{status}, #{appId}, #{userId}, #{title}, #{notes})
